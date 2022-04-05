@@ -1,0 +1,83 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+
+<div class="row">
+    
+        <form method="post">
+            <p>
+                <div class="form-group">
+                    Job Title: <input type="text" asp-for="JobNameString" />
+                    Param1: <input type="text" asp-for="Param1String" />
+                    <input type="submit" value="Run new Job" asp-page-handler="StartJob" class="btn btn-primary" />
+                </div>
+            </p>
+        </form>
+ 
+
+</div>
+
+
+
+
+<div class="row">
+    <form method="post">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.processingJobs[0].ID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.processingJobs[0].Type)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.processingJobs[0].Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.processingJobs[0].Param1)
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.processingJobs.Count !=0)
+                {
+                    @foreach (var item in Model.processingJobs)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Type)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Param1)
+                            </td>
+                            <td>
+                                <input type="submit" value="Stop Job" asp-page-handler="StopJobByID" asp-route-id="@item.ID" class="btn btn-primary" />
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                     <tr>
+                            <td colspan=4>
+                                No jobs currently processing 
+                            </td>
+                     </tr>
+                }
+            </tbody>
+        </table>
+    </form>
+</div>
