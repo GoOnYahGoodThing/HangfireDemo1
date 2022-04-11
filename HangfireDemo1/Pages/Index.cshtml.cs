@@ -48,7 +48,7 @@ namespace HangfireDemo1.Pages
         }
         public IActionResult OnPostStartJob()
         {
-            var jobid = BackgroundJob.Enqueue(() => StoppableJob.Execute(JobNameString, Param1String, CancellationToken.None));
+            var jobid = BackgroundJob.Enqueue(() => StoppableJob.Execute(JobNameString, Param1String, CancellationToken.None, null));
             
             Console.WriteLine($"Job {JobNameString} kicked off with ID of {jobid}");
             //Settle up the model before returning.
